@@ -1,0 +1,44 @@
+﻿@model MVC_Demo.Models.UserModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<link href="../Content/StyleSheet.css" rel="stylesheet" />
+
+<h1>Sacred Knowledge Library</h1>
+
+
+<h1>Register User</h1>
+
+@using (Html.BeginForm("Create", "User", FormMethod.Post))
+{
+    <div>
+        @Html.LabelFor(user => user.Name)
+        @Html.TextBoxFor(user => user.Name, new { @class = "", placeholder = "Enter User Name", style = "margin-bottom:5px;" })
+        @Html.ValidationMessageFor(user => user.Name)
+        <br />
+        @Html.LabelFor(user => user.Email)
+        @Html.TextBoxFor(user => user.Email, new { @class = "", placeholder = "Enter Email", style = "margin-bottom:5px;" })
+        @Html.ValidationMessageFor(user => user.Email)
+        <br />
+        @Html.LabelFor(user => user.Password)>
+        @Html.PasswordFor(user => user.Password, new { @class = "", placeholder = "Enter Password", style = "margin-bottom:5px;" })
+        @Html.ValidationMessageFor(user => user.Password)
+        <br />
+        @Html.LabelFor(user => user.Confirm)>
+        @Html.PasswordFor(user => user.Confirm, new { @class = "", placeholder = "Confirm Password", style = "margin-bottom:5px;" })
+        @Html.ValidationMessageFor(user => user.Confirm)
+        <br />
+        @Html.LabelFor(user => user.Mobile)
+        @Html.TextBoxFor(user => user.Mobile, new { @class = "", placeholder = "Enter Mobile Number", style = "margin-bottom:5px;" })
+        @Html.ValidationMessageFor(user => user.Mobile)
+        <br />
+        @Html.LabelFor(user => user.Gender)
+        <label>Male</label>
+        @Html.RadioButtonFor(user => user.Gender, "Male")
+        <label>Female</label>
+        @Html.RadioButtonFor(user => user.Gender, "Female")
+        <br />
+        <input type="submit" value="Register" />
+    </div>
+}

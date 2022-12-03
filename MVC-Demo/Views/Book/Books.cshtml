@@ -1,0 +1,63 @@
+﻿@model IEnumerable<MVC_Demo.Book>
+@{
+    ViewBag.Title = "Books";
+}
+
+<link href="../Content/StyleSheet.css" rel="stylesheet" />
+<h1>Sacred Knowledge Library</h1>
+
+@if (Session["UserName"] != null)
+{
+    <h2><text>Welcome @Session["UserName"].ToString() </text></h2>
+}
+
+@using (Html.BeginForm("Logout", "Login"))
+{
+    <input type="submit" value="Logout" />
+}
+
+
+
+@using (Html.BeginForm("Search", "Book", FormMethod.Post, new { @class = "Search-form" }))
+{
+    <div id="txtBox">
+        @Html.Label("Search Books ")
+        <input type="text" name="q" />
+    </div>
+    <div id="radioList">
+        @Html.RadioButton("SearchType", "0")
+        @Html.Label("ID")
+        @Html.RadioButton("SearchType", "1", true)
+        @Html.Label("Title/Category")
+
+    </div>
+    <div id="btnSearch">
+        <input type="submit" value="Search" id="btnSubmit" />
+    </div>
+}
+
+
+<div id="DivGrid">
+    @{
+        var grid = new WebGrid(source: Model, canPage: true, rowsPerPage: 3, defaultSort: "BookId");
+        if (Model.Count() > 0)
+        {
+            <div><strong> @ViewBag.SearchParameter</strong> | @grid.TotalRowCount @Html.Label("Record(s) found")</div>
+            @grid.GetHtml(tableStyle: "PGrid", headerStyle: "Header", htmlAttributes: new { id = "DataTable" }, columns: grid.Columns(
+            grid.Column("BookId", "Book ID"),
+            grid.Column("Name", "Book Title"),
+            grid.Column("Category"),
+            grid.Column("CategoryId", "Categogy ID"),
+            grid.Column("", header: "Action", format: @<text>@Html.ActionLink("Edit", "Edit", new { id = item.BookId }) | @Html.ActionLink("Delete", "Delete", new { id = item.BookId })</text>)));
+        }
+        else
+        {
+            <hr />@Html.Label("No, Record(s) not found")<hr />
+        }
+    }
+</div>
+
+@using (Html.BeginForm("Create","Book",FormMethod.Get))
+{
+    <input type="submit" value="Add Book" />
+}

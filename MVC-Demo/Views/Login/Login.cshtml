@@ -1,0 +1,49 @@
+﻿@model MVC_Demo.Models.LoginModel
+@{
+    ViewBag.Title = "Login";
+}
+
+<link href="../Content/StyleSheet.css" rel="stylesheet" />
+
+<h1>Sacred Knowledge Library</h1>
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        
+        <legend>Login to Library</legend>
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @if (ViewBag.Message != null)
+        {
+            <div style="border: 1px solid red">
+                @ViewBag.Message
+            </div>
+        }
+        <table>
+            <tr>
+                <td>@Html.LabelFor(a => a.Name)</td>
+                <td>@Html.TextBoxFor(a => a.Name)</td>
+                <td>@Html.ValidationMessageFor(a => a.Name)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(a => a.Password)</td>
+                <td>@Html.PasswordFor(a => a.Password)</td>
+                <td>@Html.ValidationMessageFor(a => a.Password)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Login" />
+                </td>
+                <td></td>
+            </tr>
+
+        </table>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Not an existing user? Register here", "Index", "User")
+</div>
