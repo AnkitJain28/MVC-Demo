@@ -9,6 +9,7 @@ namespace MVC_Demo.Controllers
     public class BookController : Controller
     {
         Entities db = new Entities();
+        
 
         // To Search input string in Books based on id or Name/Category
         public ActionResult Search(string q, string S)
@@ -23,7 +24,7 @@ namespace MVC_Demo.Controllers
                 {
                     case 0:
                         int iQ = int.Parse(q);
-                        books = books.Where(b => b.BookId.Equals(iQ) || b.CategoryId.Equals(iQ));
+                        books = books.Where(b => b.BookId.Equals(iQ));
                         searchParameter += " Id = ' " + q + " '";
                         break;
                     case 1:
@@ -59,8 +60,8 @@ namespace MVC_Demo.Controllers
         // Returns view with book data to edit 
         public ActionResult Edit(int id)
         {
-           
-            
+
+            ViewBag.CategoryList = db.Categories.Select(c => c.CategoryName).ToList();
             var book = db.Books.Where(b => b.BookId == id).FirstOrDefault();
 
             return View(book);
@@ -77,7 +78,6 @@ namespace MVC_Demo.Controllers
             var bk = db.Books.Where(b => b.BookId == book.BookId).FirstOrDefault();
             bk.Name = book.Name;
             bk.Category = book.Category;
-            bk.CategoryId = book.CategoryId;
             
             db.SaveChanges();
 
@@ -107,7 +107,7 @@ namespace MVC_Demo.Controllers
         //Returns create view
         public ActionResult Create()
         {
-
+            ViewBag.CategoryList = db.Categories.Select(c => c.CategoryName).ToList();
             return View();
 
         }

@@ -47,7 +47,6 @@
             grid.Column("BookId", "Book ID"),
             grid.Column("Name", "Book Title"),
             grid.Column("Category"),
-            grid.Column("CategoryId", "Categogy ID"),
             grid.Column("", header: "Action", format: @<text>@Html.ActionLink("Edit", "Edit", new { id = item.BookId }) | @Html.ActionLink("Delete", "Delete", new { id = item.BookId })</text>)));
         }
         else

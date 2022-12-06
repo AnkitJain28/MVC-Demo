@@ -17,8 +17,5 @@ namespace MVC_Demo
         public int BookId { get; set; }
         public string Name { get; set; }
         public string Category { get; set; }
-        public int CategoryId { get; set; }
-    
-        public virtual Category Category1 { get; set; }
     }
 }
