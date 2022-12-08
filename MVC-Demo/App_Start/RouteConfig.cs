@@ -28,6 +28,11 @@ namespace MVC_Demo
                url: "{controller}/{action}/{id}",
                defaults: new { controller = "Book", action = "Books", id = UrlParameter.Optional }
            );
+            routes.MapRoute(
+               name: "Category",
+               url: "{controller}/{action}/{id}",
+               defaults: new { controller = "Category", action = "CategoryList", id = UrlParameter.Optional }
+           );
         }
     }
 }

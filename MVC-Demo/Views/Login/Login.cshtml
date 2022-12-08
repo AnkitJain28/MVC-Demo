@@ -3,7 +3,6 @@
     ViewBag.Title = "Login";
 }
 
-<link href="../Content/StyleSheet.css" rel="stylesheet" />
 
 <h1>Sacred Knowledge Library</h1>
 
@@ -24,12 +23,12 @@
         <table>
             <tr>
                 <td>@Html.LabelFor(a => a.Name)</td>
-                <td>@Html.TextBoxFor(a => a.Name)</td>
+                <td>@Html.TextBoxFor(a => a.Name, new { @class = "", placeholder = "Enter User Name" })</td>
                 <td>@Html.ValidationMessageFor(a => a.Name)</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(a => a.Password)</td>
-                <td>@Html.PasswordFor(a => a.Password)</td>
+                <td>@Html.PasswordFor(a => a.Password, new { @class = "", placeholder = "Enter Password" })</td>
                 <td>@Html.ValidationMessageFor(a => a.Password)</td>
             </tr>
             <tr>

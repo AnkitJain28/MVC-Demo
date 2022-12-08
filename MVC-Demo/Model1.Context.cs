@@ -27,6 +27,7 @@ namespace MVC_Demo
     
         public virtual DbSet<Book> Books { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<User> Users { get; set; }
     }
 }

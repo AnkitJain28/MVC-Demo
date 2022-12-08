@@ -11,7 +11,7 @@ namespace MVC_Demo.Models
     {
         public int UserId { get; set; }
 
-        [Display(Name = "UserName")]
+        [Display(Name = "User Name")]
         [Required(ErrorMessage ="Please enter username")]
         public string Name { get; set; }
 

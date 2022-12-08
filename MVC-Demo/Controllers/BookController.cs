@@ -18,31 +18,41 @@ namespace MVC_Demo.Controllers
             int id = Convert.ToInt32(Request["SearchType"]);
             var searchParameter = "Search result for ";
 
-            if (!string.IsNullOrWhiteSpace(q))
+            try
             {
-                switch (id)
+                if (!string.IsNullOrWhiteSpace(q))
                 {
-                    case 0:
-                        int iQ = int.Parse(q);
-                        books = books.Where(b => b.BookId.Equals(iQ));
-                        searchParameter += " Id = ' " + q + " '";
-                        break;
-                    case 1:
-                        books = books.Where(b => b.Name.Contains(q) || b.Category.Contains(q));
-                        searchParameter += " Title/Category contains ' " + q + " '";
-                        break;
+                    switch (id)
+                    {
+                        case 0:
+                            int iQ = int.Parse(q);
+                            books = books.Where(b => b.BookId.Equals(iQ));
+                            searchParameter += " Id = ' " + q + " '";
+                            break;
+                        case 1:
+                            books = books.Where(b => b.Name.Contains(q) || b.Category.Contains(q));
+                            searchParameter += " Title/Category contains ' " + q + " '";
+                            break;
 
+                    }
                 }
+                else
+                {
+                    searchParameter += "ALL";
+                }
+                ViewBag.SearchParameter = searchParameter;
+                return View("Books", books);
             }
-            else
+            catch(Exception ex)
             {
-                searchParameter += "ALL";
-            }
-            ViewBag.SearchParameter = searchParameter;
-            return View("Books",books);
+                ViewBag.Message = ex.Message;
+                return View("Books", books);
+            } 
+
+            
         }
 
-        // Returns list of books to view if session is on else redirects to login 
+        // Returns list of books to view if session is active else redirects to login 
         public ActionResult Books()
         {
             if (Session["UserID"] != null)
@@ -53,7 +63,7 @@ namespace MVC_Demo.Controllers
             else
             {
                 ViewBag.Message = "Username or password is incorrect.";
-                return RedirectToAction("Login");
+                return RedirectToAction("Login","Login");
             }
         }
 
@@ -62,6 +72,7 @@ namespace MVC_Demo.Controllers
         {
 
             ViewBag.CategoryList = db.Categories.Select(c => c.CategoryName).ToList();
+            ViewBag.StatusList = db.Status.Select(s => s.StatusName).ToList();
             var book = db.Books.Where(b => b.BookId == id).FirstOrDefault();
 
             return View(book);
@@ -78,6 +89,7 @@ namespace MVC_Demo.Controllers
             var bk = db.Books.Where(b => b.BookId == book.BookId).FirstOrDefault();
             bk.Name = book.Name;
             bk.Category = book.Category;
+            bk.Status= book.Status;
             
             db.SaveChanges();
 
@@ -108,6 +120,7 @@ namespace MVC_Demo.Controllers
         public ActionResult Create()
         {
             ViewBag.CategoryList = db.Categories.Select(c => c.CategoryName).ToList();
+            ViewBag.StatusList = db.Status.Select(s => s.StatusName).ToList();
             return View();
 
         }
