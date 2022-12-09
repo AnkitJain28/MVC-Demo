@@ -1,4 +1,5 @@
-﻿using MVC_Demo.Models;
+﻿using MVC_Demo.Common;
+using MVC_Demo.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,6 +13,7 @@ namespace MVC_Demo.DAL
     {
         public string SignUpUser(UserModel model)
         {
+            Password encryptPassword = new Password();
             SqlConnection con = new SqlConnection("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=MVC-Demo;Integrated Security=True");
 
             try
@@ -21,7 +23,7 @@ namespace MVC_Demo.DAL
                 cmd.Parameters.AddWithValue("@Name", model.Name);
                 cmd.Parameters.AddWithValue("@Email", model.Email);
                 cmd.Parameters.AddWithValue("@Mobile", model.Mobile);
-                cmd.Parameters.AddWithValue("@Password", model.Password);
+                cmd.Parameters.AddWithValue("@Password", encryptPassword.EncryptPassword(model.Password));
                 cmd.Parameters.AddWithValue("@Gender", model.Gender);
 
                 con.Open();

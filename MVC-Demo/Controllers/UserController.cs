@@ -10,6 +10,7 @@ namespace MVC_Demo.Controllers
 {
     public class UserController : Controller
     {
+        Entities db = new Entities();
         // GET: User
         // Returns index view that has Registration Form
         public ActionResult Index()
@@ -22,8 +23,17 @@ namespace MVC_Demo.Controllers
         {
             if (ModelState.IsValid)
             {
-                RegisterDataLayer dal = new RegisterDataLayer();
-                string message = dal.SignUpUser(model);
+                if (db.Users.Where(u => u.Name == model.Name).Any())
+                {
+                    ViewBag.Message = "UserName is Already Taken, try with another UserName";
+                    return View("~/Views/User/Index.cshtml"); 
+                }
+                else
+                {
+                    RegisterDataLayer dal = new RegisterDataLayer();
+                    string message = dal.SignUpUser(model);
+                }
+                
             }
             else
             {

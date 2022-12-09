@@ -14,23 +14,27 @@
 {
     <div>
         @Html.LabelFor(user => user.Name)
-        @Html.TextBoxFor(user => user.Name, new { @class = "", placeholder = "Enter User Name", style = "margin-bottom:5px;" })
+        @Html.TextBoxFor(user => user.Name, new { @class = "form-control", placeholder = "Enter User Name", style = "margin-bottom:5px;" })
         @Html.ValidationMessageFor(user => user.Name)
+        @if (ViewBag.Message != null)
+        {
+            @ViewBag.Message.ToString();
+        }
         <br />
         @Html.LabelFor(user => user.Email)
-        @Html.TextBoxFor(user => user.Email, new { @class = "", placeholder = "Enter Email", style = "margin-bottom:5px;" })
+        @Html.TextBoxFor(user => user.Email, new { @class = "form-control", placeholder = "Enter Email", style = "margin-bottom:5px;" })
         @Html.ValidationMessageFor(user => user.Email)
         <br />
-        @Html.LabelFor(user => user.Password)>
-        @Html.PasswordFor(user => user.Password, new { @class = "", placeholder = "Enter Password", style = "margin-bottom:5px;" })
+        @Html.LabelFor(user => user.Password)
+        @Html.PasswordFor(user => user.Password, new { @class = "form-control", placeholder = "Enter Password", style = "margin-bottom:5px;" })
         @Html.ValidationMessageFor(user => user.Password)
         <br />
-        @Html.LabelFor(user => user.Confirm)>
-        @Html.PasswordFor(user => user.Confirm, new { @class = "", placeholder = "Confirm Password", style = "margin-bottom:5px;" })
+        @Html.LabelFor(user => user.Confirm)
+        @Html.PasswordFor(user => user.Confirm, new { @class = "form-control", placeholder = "Confirm Password", style = "margin-bottom:5px;" })
         @Html.ValidationMessageFor(user => user.Confirm)
         <br />
         @Html.LabelFor(user => user.Mobile)
-        @Html.TextBoxFor(user => user.Mobile, new { @class = "", placeholder = "Enter Mobile Number", style = "margin-bottom:5px;" })
+        @Html.TextBoxFor(user => user.Mobile, new { @class = "form-control", placeholder = "Enter Mobile Number", style = "margin-bottom:5px;" })
         @Html.ValidationMessageFor(user => user.Mobile)
         <br />
         @Html.LabelFor(user => user.Gender)

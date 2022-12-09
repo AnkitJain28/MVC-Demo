@@ -1,4 +1,6 @@
-﻿using MVC_Demo.Models;
+﻿using Microsoft.Ajax.Utilities;
+using MVC_Demo.Common;
+using MVC_Demo.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,18 +37,23 @@ namespace MVC_Demo.Controllers
         {
             if (ModelState.IsValid)
             {
+                Password decryptPassword = new Password();
                 using (Entities db = new Entities())
                 {
-                    var obj = db.Users.Where(a => a.Name.Equals(objUser.Name) && a.Password.Equals(objUser.Password)).FirstOrDefault();
+                    var obj = db.Users.Where(a => a.Name.Equals(objUser.Name)).FirstOrDefault();
                     if (obj == null)
                     {
-                        ViewBag.Message = "Username or password is incoreect.";
+                        ViewBag.Message = "Username is incoreect.";
                     }
-                    else
+                    else if (decryptPassword.DecryptPassword(obj.Password).Equals(objUser.Password))
                     {
                         Session["UserID"] = obj.UserId.ToString();
                         Session["UserName"] = obj.Name.ToString();
-                        return RedirectToAction("Books","Book");
+                        return RedirectToAction("Books", "Book");
+                    }
+                    else
+                    {
+                        ViewBag.Message = " Password is incoreect.";
                     }
                 }
             }
