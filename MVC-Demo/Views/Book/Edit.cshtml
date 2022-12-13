@@ -1,4 +1,4 @@
-﻿@model MVC_Demo.Book
+﻿@model MVC_Demo.BOOK
 
 @{
     ViewBag.Title = "Edit";
@@ -17,29 +17,29 @@
     <h4>Book</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.BookId)
+    @Html.HiddenFor(model => model.BOOK_ID)
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.BOOK_NAME, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.BOOK_NAME, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.BOOK_NAME, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.CATEGORY, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownListFor(model => model.Category, new SelectList(ViewBag.CategoryList), new { @class = "dropdown", style = "margin-bottom : 7px;height: 23px;width: 179px;" })
-            @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+            @Html.DropDownListFor(model => model.CATEGORY, new SelectList(ViewBag.CategoryList), new { @class = "dropdown", style = "margin-bottom : 7px;height: 23px;width: 179px;" })
+            @Html.ValidationMessageFor(model => model.CATEGORY, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.STATUS, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownListFor(model => model.Status, new SelectList(ViewBag.StatusList), new { @class = "dropdown", style = "margin-bottom : 7px;height: 23px;width: 179px;" })
-            @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+            @Html.DropDownListFor(model => model.STATUS, new SelectList(ViewBag.StatusList), new { @class = "dropdown", style = "margin-bottom : 7px;height: 23px;width: 179px;" })
+            @Html.ValidationMessageFor(model => model.CATEGORY, "", new { @class = "text-danger" })
         </div>
     </div>
 

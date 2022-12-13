@@ -6,13 +6,4 @@
 <h1>Sacred Knowledge Library</h1>
 <h1>Welcome to Our Library</h1>
 
-@if (Session["UserID"] == null)
-{
-    @Html.ActionLink("Login", "Login", "Login")
-
-}
-else
-{
-     @Html.ActionLink("Logout","Logout","Login")
-}
 

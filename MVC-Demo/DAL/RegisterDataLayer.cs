@@ -20,7 +20,7 @@ namespace MVC_Demo.DAL
             {
                 SqlCommand cmd = new SqlCommand("proc_RegisterUser", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@Name", model.Name);
+                cmd.Parameters.AddWithValue("@Name", model.UserName);
                 cmd.Parameters.AddWithValue("@Email", model.Email);
                 cmd.Parameters.AddWithValue("@Mobile", model.Mobile);
                 cmd.Parameters.AddWithValue("@Password", encryptPassword.EncryptPassword(model.Password));

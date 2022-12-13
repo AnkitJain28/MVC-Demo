@@ -12,18 +12,20 @@ namespace MVC_Demo
     using System;
     using System.Collections.Generic;
     
-    public partial class Category
+    public partial class CATEGORY
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Category()
+        public CATEGORY()
         {
-            this.Books = new HashSet<Book>();
+            this.BOOKS = new HashSet<BOOK>();
         }
     
-        public int CategoryId { get; set; }
-        public string CategoryName { get; set; }
+        public int CATEGORY_ID { get; set; }
+        public string CATEGORY_NAME { get; set; }
+        public Nullable<System.DateTime> CREATE_TIMESTAMP { get; set; }
+        public string CREATED_BY { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Book> Books { get; set; }
+        public virtual ICollection<BOOK> BOOKS { get; set; }
     }
 }

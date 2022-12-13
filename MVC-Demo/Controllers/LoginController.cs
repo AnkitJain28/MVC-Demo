@@ -40,20 +40,20 @@ namespace MVC_Demo.Controllers
                 Password decryptPassword = new Password();
                 using (Entities db = new Entities())
                 {
-                    var obj = db.Users.Where(a => a.Name.Equals(objUser.Name)).FirstOrDefault();
+                    var obj = db.USERS.Where(a => a.USER_NAME == objUser.Name).FirstOrDefault();
                     if (obj == null)
                     {
-                        ViewBag.Message = "Username is incoreect.";
+                        ViewBag.Message = "Username is incorrect.";
                     }
-                    else if (decryptPassword.DecryptPassword(obj.Password).Equals(objUser.Password))
+                    else if (decryptPassword.DecryptPassword(obj.PASSWORD).Equals(objUser.Password))
                     {
-                        Session["UserID"] = obj.UserId.ToString();
-                        Session["UserName"] = obj.Name.ToString();
-                        return RedirectToAction("Books", "Book");
+                        Session["UserID"] = obj.USER_ID.ToString();
+                        Session["UserName"] = obj.USER_NAME.ToString();
+                        return RedirectToAction("Index", "Home");
                     }
                     else
                     {
-                        ViewBag.Message = " Password is incoreect.";
+                        ViewBag.Message = " Password is incorrect.";
                     }
                 }
             }

@@ -5,76 +5,85 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Books">
+        <EntityType Name="BOOKS">
           <Key>
-            <PropertyRef Name="BookId" />
+            <PropertyRef Name="BOOK_ID" />
           </Key>
-          <Property Name="BookId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Category" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BOOK_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BOOK_NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CATEGORY" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="STATUS" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CREATED_BY" Type="nvarchar" MaxLength="50" />
+          <Property Name="CREATE_TIMESTAMP" Type="datetime" />
+          <Property Name="UPDATED_BY" Type="nvarchar" MaxLength="50" />
+          <Property Name="UPDATE_TIMESTAMP" Type="datetime" />
         </EntityType>
-        <EntityType Name="Category">
+        <EntityType Name="CATEGORY">
           <Key>
-            <PropertyRef Name="CategoryName" />
+            <PropertyRef Name="CATEGORY_NAME" />
           </Key>
-          <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CATEGORY_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CATEGORY_NAME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CREATE_TIMESTAMP" Type="datetime" />
+          <Property Name="CREATED_BY" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="Status">
+        <EntityType Name="STATUS">
           <Key>
-            <PropertyRef Name="StatusName" />
+            <PropertyRef Name="STATUS_NAME" />
           </Key>
-          <Property Name="StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StatusName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="STATUS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="STATUS_NAME" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <EntityType Name="User">
+        <EntityType Name="USERS">
           <Key>
-            <PropertyRef Name="UserId" />
+            <PropertyRef Name="USER_ID" />
           </Key>
-          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Email" Type="nvarchar" MaxLength="50" />
-          <Property Name="Mobile" Type="nvarchar" MaxLength="20" />
-          <Property Name="Password" Type="nvarchar" MaxLength="100" />
-          <Property Name="Gender" Type="nvarchar" MaxLength="10" />
+          <Property Name="USER_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USER_NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FIRST_NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="LAST_NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="GENDER" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="EMAIL_ID" Type="nvarchar" MaxLength="254" Nullable="false" />
+          <Property Name="MOBILE" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="PASSWORD" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IS_ACTIVE" Type="bit" />
         </EntityType>
         <Association Name="FK_Books_Category">
-          <End Role="Category" Type="Self.Category" Multiplicity="1" />
-          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <End Role="CATEGORY" Type="Self.CATEGORY" Multiplicity="1" />
+          <End Role="BOOKS" Type="Self.BOOKS" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="CategoryName" />
+            <Principal Role="CATEGORY">
+              <PropertyRef Name="CATEGORY_NAME" />
             </Principal>
-            <Dependent Role="Books">
-              <PropertyRef Name="Category" />
+            <Dependent Role="BOOKS">
+              <PropertyRef Name="CATEGORY" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Books_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <End Role="STATUS" Type="Self.STATUS" Multiplicity="1" />
+          <End Role="BOOKS" Type="Self.BOOKS" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Status">
-              <PropertyRef Name="StatusName" />
+            <Principal Role="STATUS">
+              <PropertyRef Name="STATUS_NAME" />
             </Principal>
-            <Dependent Role="Books">
-              <PropertyRef Name="Status" />
+            <Dependent Role="BOOKS">
+              <PropertyRef Name="STATUS" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ModelStoreContainer">
-          <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BOOKS" EntityType="Self.BOOKS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CATEGORY" EntityType="Self.CATEGORY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STATUS" EntityType="Self.STATUS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Books_Category" Association="Self.FK_Books_Category">
-            <End Role="Category" EntitySet="Category" />
-            <End Role="Books" EntitySet="Books" />
+            <End Role="CATEGORY" EntitySet="CATEGORY" />
+            <End Role="BOOKS" EntitySet="BOOKS" />
           </AssociationSet>
           <AssociationSet Name="FK_Books_Status" Association="Self.FK_Books_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="Books" EntitySet="Books" />
+            <End Role="STATUS" EntitySet="STATUS" />
+            <End Role="BOOKS" EntitySet="BOOKS" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -82,80 +91,89 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Book">
+        <EntityType Name="BOOK">
           <Key>
-            <PropertyRef Name="BookId" />
+            <PropertyRef Name="BOOK_ID" />
           </Key>
-          <Property Name="BookId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Category1" Relationship="Self.FK_Books_Category" FromRole="Books" ToRole="Category" />
-          <NavigationProperty Name="Status1" Relationship="Self.FK_Books_Status" FromRole="Books" ToRole="Status" />
+          <Property Name="BOOK_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BOOK_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CATEGORY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="STATUS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CREATED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CREATE_TIMESTAMP" Type="DateTime" Precision="3" />
+          <Property Name="UPDATED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UPDATE_TIMESTAMP" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CATEGORY1" Relationship="Self.FK_Books_Category" FromRole="BOOKS" ToRole="CATEGORY" />
+          <NavigationProperty Name="STATUS1" Relationship="Self.FK_Books_Status" FromRole="BOOKS" ToRole="STATUS" />
         </EntityType>
-        <EntityType Name="Category">
+        <EntityType Name="CATEGORY">
           <Key>
-            <PropertyRef Name="CategoryName" />
+            <PropertyRef Name="CATEGORY_NAME" />
           </Key>
-          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Books" Relationship="Self.FK_Books_Category" FromRole="Category" ToRole="Books" />
+          <Property Name="CATEGORY_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CATEGORY_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CREATE_TIMESTAMP" Type="DateTime" Precision="3" />
+          <Property Name="CREATED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BOOKS" Relationship="Self.FK_Books_Category" FromRole="CATEGORY" ToRole="BOOKS" />
         </EntityType>
-        <EntityType Name="Status">
+        <EntityType Name="STATUS">
           <Key>
-            <PropertyRef Name="StatusName" />
+            <PropertyRef Name="STATUS_NAME" />
           </Key>
-          <Property Name="StatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Books" Relationship="Self.FK_Books_Status" FromRole="Status" ToRole="Books" />
+          <Property Name="STATUS_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="STATUS_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BOOKS" Relationship="Self.FK_Books_Status" FromRole="STATUS" ToRole="BOOKS" />
         </EntityType>
-        <EntityType Name="User">
+        <EntityType Name="USER">
           <Key>
-            <PropertyRef Name="UserId" />
+            <PropertyRef Name="USER_ID" />
           </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="USER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FIRST_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LAST_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GENDER" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EMAIL_ID" Type="String" MaxLength="254" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MOBILE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IS_ACTIVE" Type="Boolean" />
         </EntityType>
         <Association Name="FK_Books_Category">
-          <End Role="Category" Type="Self.Category" Multiplicity="1" />
-          <End Role="Books" Type="Self.Book" Multiplicity="*" />
+          <End Role="CATEGORY" Type="Self.CATEGORY" Multiplicity="1" />
+          <End Role="BOOKS" Type="Self.BOOK" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="CategoryName" />
+            <Principal Role="CATEGORY">
+              <PropertyRef Name="CATEGORY_NAME" />
             </Principal>
-            <Dependent Role="Books">
-              <PropertyRef Name="Category" />
+            <Dependent Role="BOOKS">
+              <PropertyRef Name="CATEGORY" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Books_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="Books" Type="Self.Book" Multiplicity="*" />
+          <End Role="STATUS" Type="Self.STATUS" Multiplicity="1" />
+          <End Role="BOOKS" Type="Self.BOOK" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Status">
-              <PropertyRef Name="StatusName" />
+            <Principal Role="STATUS">
+              <PropertyRef Name="STATUS_NAME" />
             </Principal>
-            <Dependent Role="Books">
-              <PropertyRef Name="Status" />
+            <Dependent Role="BOOKS">
+              <PropertyRef Name="STATUS" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Books" EntityType="Self.Book" />
-          <EntitySet Name="Categories" EntityType="Self.Category" />
-          <EntitySet Name="Status" EntityType="Self.Status" />
-          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="BOOKS" EntityType="Self.BOOK" />
+          <EntitySet Name="CATEGORies" EntityType="Self.CATEGORY" />
+          <EntitySet Name="STATUS" EntityType="Self.STATUS" />
+          <EntitySet Name="USERS" EntityType="Self.USER" />
           <AssociationSet Name="FK_Books_Category" Association="Self.FK_Books_Category">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="Books" EntitySet="Books" />
+            <End Role="CATEGORY" EntitySet="CATEGORies" />
+            <End Role="BOOKS" EntitySet="BOOKS" />
           </AssociationSet>
           <AssociationSet Name="FK_Books_Status" Association="Self.FK_Books_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="Books" EntitySet="Books" />
+            <End Role="STATUS" EntitySet="STATUS" />
+            <End Role="BOOKS" EntitySet="BOOKS" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -164,41 +182,50 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="Books">
-            <EntityTypeMapping TypeName="Model.Book">
-              <MappingFragment StoreEntitySet="Books">
-                <ScalarProperty Name="BookId" ColumnName="BookId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
+          <EntitySetMapping Name="BOOKS">
+            <EntityTypeMapping TypeName="Model.BOOK">
+              <MappingFragment StoreEntitySet="BOOKS">
+                <ScalarProperty Name="BOOK_ID" ColumnName="BOOK_ID" />
+                <ScalarProperty Name="BOOK_NAME" ColumnName="BOOK_NAME" />
+                <ScalarProperty Name="CATEGORY" ColumnName="CATEGORY" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="CREATE_TIMESTAMP" ColumnName="CREATE_TIMESTAMP" />
+                <ScalarProperty Name="UPDATED_BY" ColumnName="UPDATED_BY" />
+                <ScalarProperty Name="UPDATE_TIMESTAMP" ColumnName="UPDATE_TIMESTAMP" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="Model.Category">
-              <MappingFragment StoreEntitySet="Category">
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <EntitySetMapping Name="CATEGORies">
+            <EntityTypeMapping TypeName="Model.CATEGORY">
+              <MappingFragment StoreEntitySet="CATEGORY">
+                <ScalarProperty Name="CATEGORY_ID" ColumnName="CATEGORY_ID" />
+                <ScalarProperty Name="CATEGORY_NAME" ColumnName="CATEGORY_NAME" />
+                <ScalarProperty Name="CREATE_TIMESTAMP" ColumnName="CREATE_TIMESTAMP" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Status">
-            <EntityTypeMapping TypeName="Model.Status">
-              <MappingFragment StoreEntitySet="Status">
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <EntitySetMapping Name="STATUS">
+            <EntityTypeMapping TypeName="Model.STATUS">
+              <MappingFragment StoreEntitySet="STATUS">
+                <ScalarProperty Name="STATUS_ID" ColumnName="STATUS_ID" />
+                <ScalarProperty Name="STATUS_NAME" ColumnName="STATUS_NAME" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="Model.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <EntitySetMapping Name="USERS">
+            <EntityTypeMapping TypeName="Model.USER">
+              <MappingFragment StoreEntitySet="USERS">
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+                <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+                <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+                <ScalarProperty Name="GENDER" ColumnName="GENDER" />
+                <ScalarProperty Name="EMAIL_ID" ColumnName="EMAIL_ID" />
+                <ScalarProperty Name="MOBILE" ColumnName="MOBILE" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="IS_ACTIVE" ColumnName="IS_ACTIVE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -12,9 +12,19 @@ namespace MVC_Demo.Models
         public int UserId { get; set; }
 
         [Display(Name = "User Name")]
-        [Required(ErrorMessage ="Please enter username")]
-        [StringLength(20, MinimumLength = 5, ErrorMessage = "UserName length must between 5 to 20..")]
-        public string Name { get; set; }
+        [Required(ErrorMessage ="Please enter user name")]
+        [StringLength(50, MinimumLength = 5, ErrorMessage = "UserName length must between 5 to 50..")]
+        public string UserName { get; set; }
+
+        [Display(Name = "First Name")]
+        [Required(ErrorMessage = "Please enter your first name")]
+        [StringLength(50, ErrorMessage = "First Name length can not be more than 50..")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Last Name")]
+        [Required(ErrorMessage = "Please enter your last name")]
+        [StringLength(50, ErrorMessage = "Last Name length can not be more than 50..")]
+        public string LastName { get; set; }
 
         [Display(Name = "Password")]
         [Required(ErrorMessage = "Please enter Password")]
@@ -36,6 +46,9 @@ namespace MVC_Demo.Models
         [Display(Name = "Mobile")]
         [Required(ErrorMessage = "Please enter Mobile Number")]
         public string Mobile { get; set; }
+
+        [Display(Name = "Gender")]
+        [Required(ErrorMessage = "Please select your gender")]
         public string Gender { get; set; }
     }
 }

@@ -12,18 +12,18 @@ namespace MVC_Demo
     using System;
     using System.Collections.Generic;
     
-    public partial class Status
+    public partial class STATUS
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Status()
+        public STATUS()
         {
-            this.Books = new HashSet<Book>();
+            this.BOOKS = new HashSet<BOOK>();
         }
     
-        public int StatusId { get; set; }
-        public string StatusName { get; set; }
+        public int STATUS_ID { get; set; }
+        public string STATUS_NAME { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Book> Books { get; set; }
+        public virtual ICollection<BOOK> BOOKS { get; set; }
     }
 }

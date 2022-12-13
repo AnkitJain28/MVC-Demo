@@ -12,13 +12,16 @@ namespace MVC_Demo
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class USER
     {
-        public int UserId { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Mobile { get; set; }
-        public string Password { get; set; }
-        public string Gender { get; set; }
+        public int USER_ID { get; set; }
+        public string USER_NAME { get; set; }
+        public string FIRST_NAME { get; set; }
+        public string LAST_NAME { get; set; }
+        public string GENDER { get; set; }
+        public string EMAIL_ID { get; set; }
+        public string MOBILE { get; set; }
+        public string PASSWORD { get; set; }
+        public Nullable<bool> IS_ACTIVE { get; set; }
     }
 }

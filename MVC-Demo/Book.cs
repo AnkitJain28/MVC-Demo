@@ -12,14 +12,18 @@ namespace MVC_Demo
     using System;
     using System.Collections.Generic;
     
-    public partial class Book
+    public partial class BOOK
     {
-        public int BookId { get; set; }
-        public string Name { get; set; }
-        public string Category { get; set; }
-        public string Status { get; set; }
+        public int BOOK_ID { get; set; }
+        public string BOOK_NAME { get; set; }
+        public string CATEGORY { get; set; }
+        public string STATUS { get; set; }
+        public string CREATED_BY { get; set; }
+        public Nullable<System.DateTime> CREATE_TIMESTAMP { get; set; }
+        public string UPDATED_BY { get; set; }
+        public Nullable<System.DateTime> UPDATE_TIMESTAMP { get; set; }
     
-        public virtual Category Category1 { get; set; }
-        public virtual Status Status1 { get; set; }
+        public virtual CATEGORY CATEGORY1 { get; set; }
+        public virtual STATUS STATUS1 { get; set; }
     }
 }

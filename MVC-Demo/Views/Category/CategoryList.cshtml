@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MVC_Demo.Category>
+﻿@model IEnumerable<MVC_Demo.CATEGORY>
 @{
     ViewBag.Title = "Categories";
 }
@@ -11,45 +11,35 @@
     <h2><text>Welcomes @Session["UserName"].ToString() to Category List </text></h2>
 }
 
-@using (Html.BeginForm("Logout", "Login"))
-{
-    <input type="submit" value="Logout" />
-}
 
 
 
 @using (Html.BeginForm("Search", "Category", FormMethod.Post, new { @class = "Search-form" }))
 {
-    <div id="txtBox">
-        @Html.Label("Search Category ")
-        <input type="text" name="q" />
-        @if (ViewBag.Message != null)
-        {
-            @ViewBag.Message.ToString();
-        }
-    </div>
-    <div id="radioList">
+    <div>
         @Html.RadioButton("SearchType", "0")
         @Html.Label("ID")
         @Html.RadioButton("SearchType", "1", true)
         @Html.Label("Category Name")
-
-    </div>
-    <div id="btnSearch">
+        <input type="text" name="q" placeholder="Search Category" />
         <input type="submit" value="Search" id="btnSubmit" />
+        @if (ViewBag.Message != null)
+        {
+            @ViewBag.Message.ToString();
+        }
     </div>
 }
 
 
 <div id="DivGrid">
     @{
-        var grid = new WebGrid(source: Model, canPage: true, rowsPerPage: 3, defaultSort: "CategoryId");
+        var grid = new WebGrid(source: Model, canPage: true, rowsPerPage: 5, defaultSort: "CATEGORY_ID");
         if (Model.Count() > 0)
         {
             <div><strong> @ViewBag.SearchParameter</strong> | @grid.TotalRowCount @Html.Label("Record(s) found")</div>
             @grid.GetHtml(tableStyle: "PGrid", headerStyle: "Header", htmlAttributes: new { id = "DataTable" }, columns: grid.Columns(
-            grid.Column("CategoryId", "Category ID"),
-            grid.Column("CategoryName", "Category Name")));
+            grid.Column("CATEGORY_ID", "Category ID"),
+            grid.Column("CATEGORY_NAME", "Category Name")));
         }
         else
         {
