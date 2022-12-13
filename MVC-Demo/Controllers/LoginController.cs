@@ -17,15 +17,31 @@ namespace MVC_Demo.Controllers
         //Returns login view page
         public ActionResult Login()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View("~/Views/Shared/Error.cshtml");
+            }
         }
 
         // Ends current session and redirects to login
         public ActionResult LogOut()
         {
-            Session.Clear();
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Login");
+            try
+            {
+                Session.Clear();
+                FormsAuthentication.SignOut();
+                return RedirectToAction("Login");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View("~/Views/Shared/Error.cshtml");
+            }
         }
 
         [HttpPost]
@@ -35,29 +51,37 @@ namespace MVC_Demo.Controllers
         //Otherwise Display "Username or password is incoreect." message on Login page
         public ActionResult Login(LoginModel objUser)
         {
-            if (ModelState.IsValid)
+            try
             {
-                Password decryptPassword = new Password();
-                using (Entities db = new Entities())
+                if (ModelState.IsValid)
                 {
-                    var obj = db.USERS.Where(a => a.USER_NAME == objUser.Name).FirstOrDefault();
-                    if (obj == null)
+                    Password decryptPassword = new Password();
+                    using (Entities db = new Entities())
                     {
-                        ViewBag.Message = "Username is incorrect.";
-                    }
-                    else if (decryptPassword.DecryptPassword(obj.PASSWORD).Equals(objUser.Password))
-                    {
-                        Session["UserID"] = obj.USER_ID.ToString();
-                        Session["UserName"] = obj.USER_NAME.ToString();
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else
-                    {
-                        ViewBag.Message = " Password is incorrect.";
+                        var obj = db.USERS.Where(a => a.USER_NAME == objUser.Name).FirstOrDefault();
+                        if (obj == null)
+                        {
+                            ViewBag.Message = "Username is incorrect.";
+                        }
+                        else if (decryptPassword.DecryptPassword(obj.PASSWORD).Equals(objUser.Password))
+                        {
+                            Session["UserID"] = obj.USER_ID.ToString();
+                            Session["UserName"] = obj.USER_NAME.ToString();
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {
+                            ViewBag.Message = " Password is incorrect.";
+                        }
                     }
                 }
+                return View(objUser);
             }
-            return View(objUser);
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View("~/Views/Shared/Error.cshtml");
+            }
         }
 
         

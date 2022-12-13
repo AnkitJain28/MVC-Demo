@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVC_Demo.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,12 +16,19 @@ namespace MVC_Demo.Controllers
         // To Search input string in Categories based on id or Name
         public ActionResult Search(string q, string S)
         {
+           
             var Cats = from c in db.CATEGORies select c;
-            int id = Convert.ToInt32(Request["SearchType"]);
-            var searchParameter = "Search result for ";
-
+           
             try
             {
+                if (Session["UserID"] == null)
+                {
+                    return RedirectToAction("Login", "Login");
+                }
+
+                int id = Convert.ToInt32(Request["SearchType"]);
+                var searchParameter = "Search result for ";
+
                 if (!string.IsNullOrWhiteSpace(q))
                 {
                     switch (id)
@@ -56,16 +64,24 @@ namespace MVC_Demo.Controllers
         // Returns list of Categories to view if session is active else redirects to login 
         public ActionResult CategoryList()
         {
-            if (Session["UserID"] != null)
+            try
             {
+                if (Session["UserID"] != null)
+                {
+                    return View(db.CATEGORies.ToList());
+                }
+                else
+                {
+                    ViewBag.Message = "Username or password is incorrect.";
+                    return RedirectToAction("Login", "Login");
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View("~/Views/Shared/Error.cshtml");
+            }
 
-                return View(db.CATEGORies.ToList());
-            }
-            else
-            {
-                ViewBag.Message = "Username or password is incorrect.";
-                return RedirectToAction("Login","Login");
-            }
         }
 
         
@@ -73,31 +89,59 @@ namespace MVC_Demo.Controllers
         //Returns create view
         public ActionResult Create()
         {
-            return View();
+            try
+            {
+                if (Session["UserID"] == null)
+                {
+                    return RedirectToAction("Login", "Login");
+                }
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View("~/Views/Shared/Error.cshtml");
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
 
         //Adds a new book to database based on data from create view
-        public ActionResult Create(CATEGORY cat)
+        public ActionResult Create(CategoryModel cat)
         {
-            if(ModelState.IsValid)
+            try
             {
-                if (db.CATEGORies.Where(u => u.CATEGORY_NAME == cat.CATEGORY_NAME).Any())
+                if (Session["UserID"] == null)
                 {
-                    ViewBag.Message = "This category already exist";
-                    return View();
+                    return RedirectToAction("Login", "Login");
                 }
-                cat.CREATED_BY = Session["UserName"].ToString();
-                cat.CREATE_TIMESTAMP = DateTime.Now;
-                db.CATEGORies.Add(cat);
-                db.SaveChanges();
-                return RedirectToAction("CategoryList");
+
+                if (ModelState.IsValid)
+                {
+                    if (db.CATEGORies.Where(u => u.CATEGORY_NAME == cat.CategoryName).Any())
+                    {
+                        ViewBag.Message = "This category already exist";
+                        return View();
+                    }
+                    CATEGORY Cat = new CATEGORY();
+                    Cat.CATEGORY_NAME = cat.CategoryName;
+                    Cat.CREATED_BY = Session["UserName"].ToString();
+                    Cat.CREATE_TIMESTAMP = DateTime.Now;
+                    db.CATEGORies.Add(Cat);
+                    db.SaveChanges();
+                    return RedirectToAction("CategoryList");
+                }
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View("~/Views/Shared/Error.cshtml");
             }
 
-            return View();
-           
 
         }
 

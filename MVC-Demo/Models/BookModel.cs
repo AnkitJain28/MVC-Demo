@@ -12,7 +12,7 @@ namespace MVC_Demo.Models
         public int BookId { get; set; }
 
         [Display(Name = "Book Title")]
-        [Required(ErrorMessage = "Please enter user name")]
+        [Required(ErrorMessage = "Please enter book title")]
         [StringLength(50, ErrorMessage = "Book title length should not be more than 50..")]
         public string BookName { get; set; }
 

@@ -16,29 +16,38 @@ namespace MVC_Demo.Controllers
         // Returns index view that has Registration Form
         public ActionResult Index()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View("~/Views/Shared/Error.cshtml");
+            }
         }
 
         //Creates new user in database and redirects to Login 
         public ActionResult Create(UserModel model)
         {
+            try
+            {
+                if (db.USERS.Where(u => u.USER_NAME == model.UserName).Any())
+                {
+                    ViewBag.Message = "This user name is already taken, try with another user name";
+                    return View("~/Views/User/Index.cshtml");
+                }
+                if (ModelState.IsValid)
+                {
 
-            if (db.USERS.Where(u => u.USER_NAME == model.UserName).Any())
-            {
-                ViewBag.Message = "This user name is already taken, try with another user name";
-                return View("~/Views/User/Index.cshtml");
-            }
-            if (ModelState.IsValid)
-            {
-                
-                
+
                     // RegisterDataLayer dal = new RegisterDataLayer();
                     // string message = dal.SignUpUser(model);
                     Password encryptPassword = new Password();
-                    USER user= new USER();
+                    USER user = new USER();
                     user.USER_NAME = model.UserName;
-                    user.FIRST_NAME= model.FirstName;
-                    user.LAST_NAME= model.LastName;
+                    user.FIRST_NAME = model.FirstName;
+                    user.LAST_NAME = model.LastName;
                     user.MOBILE = model.Mobile;
                     user.EMAIL_ID = model.Email;
                     user.GENDER = model.Gender;
@@ -46,15 +55,21 @@ namespace MVC_Demo.Controllers
                     user.IS_ACTIVE = true;
                     db.USERS.Add(user);
                     db.SaveChanges();
-               
-                
-            }
-            else
-            {
-                return View("~/Views/User/Index.cshtml");
-            }
 
-            return View();
+
+                }
+                else
+                {
+                    return View("~/Views/User/Index.cshtml");
+                }
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View("~/Views/Shared/Error.cshtml");
+            }
         }
     }
 }

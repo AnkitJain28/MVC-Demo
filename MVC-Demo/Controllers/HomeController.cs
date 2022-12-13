@@ -11,7 +11,20 @@ namespace MVC_Demo.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return View();
+            try
+            {
+                if (Session["UserID"] == null)
+                {
+                    return RedirectToAction("Login", "Login");
+                }
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View("~/Views/Shared/Error.cshtml");
+            }
         }
     }
 }
