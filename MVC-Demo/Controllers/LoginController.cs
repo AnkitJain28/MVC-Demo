@@ -1,6 +1,8 @@
-﻿using Microsoft.Ajax.Utilities;
+﻿using CaptchaMvc.HtmlHelpers;
+using Microsoft.Ajax.Utilities;
 using MVC_Demo.Common;
 using MVC_Demo.Models;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,8 @@ namespace MVC_Demo.Controllers
 {
     public class LoginController : Controller
     {
-        
+        public readonly Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+
         // GET: Login
         //Returns login view page
         public ActionResult Login()
@@ -24,6 +27,7 @@ namespace MVC_Demo.Controllers
             catch (Exception ex)
             {
                 ViewBag.Message = ex.Message;
+                Logger.Error(ex);
                 return View("~/Views/Shared/Error.cshtml");
             }
         }
@@ -40,6 +44,7 @@ namespace MVC_Demo.Controllers
             catch (Exception ex)
             {
                 ViewBag.Message = ex.Message;
+                Logger.Error(ex);
                 return View("~/Views/Shared/Error.cshtml");
             }
         }
@@ -53,12 +58,19 @@ namespace MVC_Demo.Controllers
         {
             try
             {
+                if (!this.IsCaptchaValid("Captcha is not valid"))
+                {
+                    ViewBag.Message = "Captcha do not match.Try again!";
+                    return View(objUser);
+
+                }
+
                 if (ModelState.IsValid)
                 {
                     Password decryptPassword = new Password();
                     using (Entities db = new Entities())
                     {
-                        var obj = db.USERS.Where(a => a.USER_NAME == objUser.Name).FirstOrDefault();
+                        var obj = db.USERS.Where(a => a.USER_NAME == objUser.UserName).FirstOrDefault();
                         if (obj == null)
                         {
                             ViewBag.Message = "Username is incorrect.";
@@ -80,6 +92,7 @@ namespace MVC_Demo.Controllers
             catch (Exception ex)
             {
                 ViewBag.Message = ex.Message;
+                Logger.Error(ex);
                 return View("~/Views/Shared/Error.cshtml");
             }
         }

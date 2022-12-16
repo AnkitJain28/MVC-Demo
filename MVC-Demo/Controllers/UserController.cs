@@ -1,17 +1,21 @@
 ﻿using MVC_Demo.Common;
 using MVC_Demo.DAL;
 using MVC_Demo.Models;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CaptchaMvc.HtmlHelpers;
 
 namespace MVC_Demo.Controllers
 {
     public class UserController : Controller
     {
         Entities db = new Entities();
+        public readonly Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+
         // GET: User
         // Returns index view that has Registration Form
         public ActionResult Index()
@@ -23,6 +27,7 @@ namespace MVC_Demo.Controllers
             catch (Exception ex)
             {
                 ViewBag.Message = ex.Message;
+                Logger.Error(ex);
                 return View("~/Views/Shared/Error.cshtml");
             }
         }
@@ -39,6 +44,11 @@ namespace MVC_Demo.Controllers
                 }
                 if (ModelState.IsValid)
                 {
+                    if (!this.IsCaptchaValid("Captcha is not valid"))
+                    {
+                        return View("~/Views/User/Index.cshtml");
+
+                    }
 
 
                     // RegisterDataLayer dal = new RegisterDataLayer();
@@ -68,6 +78,7 @@ namespace MVC_Demo.Controllers
             catch (Exception ex)
             {
                 ViewBag.Message = ex.Message;
+                Logger.Error(ex);
                 return View("~/Views/Shared/Error.cshtml");
             }
         }

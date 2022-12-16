@@ -11,10 +11,12 @@ namespace MVC_Demo.Models
     {
         [Display(Name = "User Name")]
         [Required(ErrorMessage = "Please enter username")]
-        public string Name { get; set; }
+        [StringLength(50, MinimumLength = 5, ErrorMessage = "User Name length should be between 5 to 50..")]
+        public string UserName { get; set; }
 
         [Display(Name = "Password")]
         [Required(ErrorMessage = "Please enter Password")]
+        [StringLength(20, MinimumLength = 8, ErrorMessage = "Password length should be between 8 to 20..")]
         public string Password { get; set; }
     }
 }

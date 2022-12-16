@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,7 @@ namespace MVC_Demo.Controllers
 {
     public class HomeController : Controller
     {
+        public readonly Logger Logger = NLog.LogManager.GetCurrentClassLogger();
         // GET: Home
         public ActionResult Index()
         {
@@ -23,6 +25,7 @@ namespace MVC_Demo.Controllers
             catch (Exception ex)
             {
                 ViewBag.Message = ex.Message;
+                Logger.Error(ex);
                 return View("~/Views/Shared/Error.cshtml");
             }
         }

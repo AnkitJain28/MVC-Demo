@@ -4,16 +4,14 @@
 }
 
 <link href="../Content/StyleSheet.css" rel="stylesheet" />
-<h1>Sacred Knowledge Library</h1>
+<h1>Sacred Knowledge Library Book List</h1>
 
-@if (Session["UserName"] != null)
+@using (Html.BeginForm("Create", "Book", FormMethod.Get))
 {
-    <h2><text>Welcomes @Session["UserName"].ToString() to Book List </text></h2>
+    <div style="float:right;">
+    <input type="submit" value="Add Book" />
+    </div>
 }
-
-
-
-
 
 @using (Html.BeginForm("Search", "Book", FormMethod.Post, new { @class = "Search-form" }))
 {
@@ -38,22 +36,21 @@
         var grid = new WebGrid(source: Model, canPage: true, rowsPerPage: 5, defaultSort: "BOOK_ID");
         if (Model.Count() > 0)
         {
-            <div><strong> @ViewBag.SearchParameter</strong> | @grid.TotalRowCount @Html.Label("Record(s) found")</div>
+
             @grid.GetHtml(tableStyle: "PGrid", headerStyle: "Header", htmlAttributes: new { id = "DataTable" }, columns: grid.Columns(
             grid.Column("BOOK_ID", "Book ID"),
             grid.Column("BOOK_NAME", "Book Title"),
-            grid.Column("CATEGORY","Category"),
-            grid.Column("STATUS","Status"),
+            grid.Column("CATEGORY", "Category"),
+            grid.Column("STATUS", "Status"),
             grid.Column("", header: "Action", format: @<text>@Html.ActionLink("Edit", "Edit", new { id = item.BOOK_ID }) | @Html.ActionLink("Delete", "Delete", new { id = item.BOOK_ID })</text>)));
+            <div><strong> @ViewBag.SearchParameter</strong> | @grid.TotalRowCount @Html.Label("Record(s) found")</div>
+
         }
         else
         {
-            <hr />@Html.Label("No, Record(s) not found")<hr />
+            <hr />@Html.Label("No Record Found")<hr />
         }
     }
 </div>
 
-@using (Html.BeginForm("Create","Book",FormMethod.Get))
-{
-    <input type="submit" value="Add Book" />
-}
+

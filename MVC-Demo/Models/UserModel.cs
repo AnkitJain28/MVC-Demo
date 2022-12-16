@@ -13,7 +13,7 @@ namespace MVC_Demo.Models
 
         [Display(Name = "User Name")]
         [Required(ErrorMessage ="Please enter user name")]
-        [StringLength(50, MinimumLength = 5, ErrorMessage = "UserName length must between 5 to 50..")]
+        [StringLength(50, MinimumLength = 5, ErrorMessage = "User Name length should be between 5 to 50..")]
         public string UserName { get; set; }
 
         [Display(Name = "First Name")]
@@ -28,7 +28,7 @@ namespace MVC_Demo.Models
 
         [Display(Name = "Password")]
         [Required(ErrorMessage = "Please enter Password")]
-        [StringLength(20, MinimumLength = 8, ErrorMessage = "Password length must between 8 to 20..")]
+        [StringLength(20, MinimumLength = 8, ErrorMessage = "Password length should be between 8 to 20..")]
         public string Password { get; set; }
 
         [Display(Name = "Confirm Password")]

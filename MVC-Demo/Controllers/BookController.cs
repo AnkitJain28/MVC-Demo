@@ -1,4 +1,5 @@
 ﻿using MVC_Demo.Models;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace MVC_Demo.Controllers
     public class BookController : Controller
     {
         Entities db = new Entities();
-        
+        public readonly Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
 
         // To Search input string in Books based on id or Name/Category
@@ -53,6 +54,7 @@ namespace MVC_Demo.Controllers
             catch(Exception ex)
             {
                 ViewBag.Message = ex.Message;
+                Logger.Error(ex);
                 return View("Books", books);
             } 
 
@@ -77,6 +79,7 @@ namespace MVC_Demo.Controllers
             catch (Exception ex)
             {
                 ViewBag.Message = ex.Message;
+                Logger.Error(ex);
                 return View("~/Views/Shared/Error.cshtml");
             }
         }
@@ -104,6 +107,7 @@ namespace MVC_Demo.Controllers
             catch (Exception ex)
             {
                 ViewBag.Message = ex.Message;
+                Logger.Error(ex);
                 return View("~/Views/Shared/Error.cshtml");
             }
            
@@ -141,6 +145,7 @@ namespace MVC_Demo.Controllers
             catch (Exception ex)
             {
                 ViewBag.Message = ex.Message;
+                Logger.Error(ex);
                 return View("~/Views/Shared/Error.cshtml");
             }
         }
@@ -166,6 +171,7 @@ namespace MVC_Demo.Controllers
             catch (Exception ex)
             {
                 ViewBag.Message = ex.Message;
+                Logger.Error(ex);
                 return View("~/Views/Shared/Error.cshtml");
             }
         }
@@ -183,6 +189,8 @@ namespace MVC_Demo.Controllers
                     return RedirectToAction("Login", "Login");
                 }
                 var bk = db.BOOKS.Where(b => b.BOOK_ID == Book.BookId).FirstOrDefault();
+                bk.UPDATED_BY = Session["UserName"].ToString();
+                db.SaveChanges();
                 db.BOOKS.Remove(bk);
                 db.SaveChanges();
                 return RedirectToAction("Books");
@@ -190,6 +198,7 @@ namespace MVC_Demo.Controllers
             catch (Exception ex)
             {
                 ViewBag.Message = ex.Message;
+                Logger.Error(ex);
                 return View("~/Views/Shared/Error.cshtml");
             }
         }
@@ -211,6 +220,7 @@ namespace MVC_Demo.Controllers
             catch (Exception ex)
             {
                 ViewBag.Message = ex.Message;
+                Logger.Error(ex);
                 return View("~/Views/Shared/Error.cshtml");
             }
 
@@ -247,6 +257,7 @@ namespace MVC_Demo.Controllers
             catch (Exception ex)
             {
                 ViewBag.Message = ex.Message;
+                Logger.Error(ex);
                 return View("~/Views/Shared/Error.cshtml");
             }
 

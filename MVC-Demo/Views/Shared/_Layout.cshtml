@@ -19,25 +19,36 @@
                
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
 
-                    @if (Session["UserID"] == null)
-                    {
-                        <li>@Html.ActionLink("Login", "Login", "Login")</li>
-                        <li>@Html.ActionLink("Register", "Index", "User")</li>
-                    }
-                    else
-                    {
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Book List", "Books", "Book")</li>
-                        <li>@Html.ActionLink("Category List", "CategoryList", "Category")</li>
-                        <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
-                    }
+                @if (Session["UserID"] == null)
+                {
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("Login", "Login", "Login")</li>
+                            <li>@Html.ActionLink("Register", "Index", "User")</li>
+                        </ul>
+                    </div>
 
+                }
+                else
+                {
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Book List", "Books", "Book")</li>
+                            <li>@Html.ActionLink("Category List", "CategoryList", "Category")</li>
+                        </ul>
+                        <div style="float:right;">
+                            <ul class="nav navbar-nav" style="color:white; margin-top:15px;">
+                                <li>Welcome @Session["UserName"]</li>
+                            </ul>
+                            <ul class="nav navbar-nav" style="">
+                                <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
+                            </ul>
+                        </div>
+                    </div>
+                }
 
-
-
-                </ul>
             </div>
         </div>
     </div>

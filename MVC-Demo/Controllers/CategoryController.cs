@@ -1,4 +1,5 @@
 ﻿using MVC_Demo.Models;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace MVC_Demo.Controllers
     public class CategoryController : Controller
     {
         Entities db = new Entities();
+        public readonly Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
 
         // To Search input string in Categories based on id or Name
@@ -55,6 +57,7 @@ namespace MVC_Demo.Controllers
             catch (Exception ex)
             {
                 ViewBag.Message = ex.Message;
+                Logger.Error(ex);
                 return View("CategoryList", Cats);
             }
 
@@ -79,6 +82,7 @@ namespace MVC_Demo.Controllers
             catch (Exception ex)
             {
                 ViewBag.Message = ex.Message;
+                Logger.Error(ex);
                 return View("~/Views/Shared/Error.cshtml");
             }
 
@@ -101,6 +105,7 @@ namespace MVC_Demo.Controllers
             catch (Exception ex)
             {
                 ViewBag.Message = ex.Message;
+                Logger.Error(ex);
                 return View("~/Views/Shared/Error.cshtml");
             }
         }
@@ -139,6 +144,7 @@ namespace MVC_Demo.Controllers
             catch (Exception ex)
             {
                 ViewBag.Message = ex.Message;
+                Logger.Error(ex);
                 return View("~/Views/Shared/Error.cshtml");
             }
 

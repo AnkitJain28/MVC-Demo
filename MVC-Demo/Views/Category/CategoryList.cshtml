@@ -4,15 +4,14 @@
 }
 
 <link href="../Content/StyleSheet.css" rel="stylesheet" />
-<h1>Sacred Knowledge Library</h1>
+<h1>Sacred Knowledge Library Category List</h1>
 
-@if (Session["UserName"] != null)
+@using (Html.BeginForm("Create", "Category", FormMethod.Get))
 {
-    <h2><text>Welcomes @Session["UserName"].ToString() to Category List </text></h2>
+    <div style="float:right">
+    <input type="submit" value="Add Category" />
+    </div>
 }
-
-
-
 
 @using (Html.BeginForm("Search", "Category", FormMethod.Post, new { @class = "Search-form" }))
 {
@@ -36,21 +35,18 @@
         var grid = new WebGrid(source: Model, canPage: true, rowsPerPage: 5, defaultSort: "CATEGORY_ID");
         if (Model.Count() > 0)
         {
-            <div><strong> @ViewBag.SearchParameter</strong> | @grid.TotalRowCount @Html.Label("Record(s) found")</div>
             @grid.GetHtml(tableStyle: "PGrid", headerStyle: "Header", htmlAttributes: new { id = "DataTable" }, columns: grid.Columns(
             grid.Column("CATEGORY_ID", "Category ID"),
             grid.Column("CATEGORY_NAME", "Category Name")));
+            <div><strong> @ViewBag.SearchParameter</strong> | @grid.TotalRowCount @Html.Label("Record(s) found")</div>
         }
         else
         {
-            <hr />@Html.Label("No, Record(s) not found")<hr />
+            <hr />@Html.Label("No Record found")<hr />
         }
     }
 </div>
 
-@using (Html.BeginForm("Create", "Category", FormMethod.Get))
-{
-    <input type="submit" value="Add " />
-}
+
 
 
