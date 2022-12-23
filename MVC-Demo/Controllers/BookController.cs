@@ -85,7 +85,7 @@ namespace MVC_Demo.Controllers
         }
 
         // Returns view with book data to edit 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
             try
             {
@@ -151,7 +151,7 @@ namespace MVC_Demo.Controllers
         }
 
         //redircts to delete view with book data to be deleted
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
             try
             {

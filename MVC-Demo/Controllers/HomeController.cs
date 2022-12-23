@@ -15,10 +15,10 @@ namespace MVC_Demo.Controllers
         {
             try
             {
-                if (Session["UserID"] == null)
-                {
-                    return RedirectToAction("Login", "Login");
-                }
+                //if (Session["UserID"] == null)
+                //{
+                //    return RedirectToAction("Login", "Login");
+                //}
 
                 return View();
             }

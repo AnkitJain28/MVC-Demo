@@ -79,7 +79,7 @@ namespace MVC_Demo.Controllers
                         {
                             Session["UserID"] = obj.USER_ID.ToString();
                             Session["UserName"] = obj.USER_NAME.ToString();
-                            return RedirectToAction("Index", "Home");
+                            return RedirectToAction("Books", "Book");
                         }
                         else
                         {
