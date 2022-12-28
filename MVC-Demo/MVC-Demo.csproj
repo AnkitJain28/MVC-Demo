@@ -214,6 +214,7 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Database\MVC-Demo.bak" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
